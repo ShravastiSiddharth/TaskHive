@@ -1,6 +1,8 @@
+// client/src/pages/SignUp.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Authentication/AuthContext';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +15,7 @@ const SignUp = () => {
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const { name, email, password, confirmPassword } = formData;
 
@@ -41,18 +44,13 @@ const SignUp = () => {
                 email,
                 password,
             });
+            login(response.data.token);
             setSuccess('User registered successfully!');
             setErrors({});
-            setFormData({
-                name: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-            });
-            localStorage.setItem('token', response.data.token);
-            navigate("/dashboard");
+            navigate('/dashboard');
         } catch (error) {
-            setErrors({ server: error.response.data.msg });
+            const errorMsg = error.response?.data?.msg || 'An error occurred. Please try again.';
+            setErrors({ server: errorMsg });
             setSuccess('');
         }
     };
@@ -62,7 +60,7 @@ const SignUp = () => {
             <h2>Sign Up</h2>
             {success && <div className="success-message">{success}</div>}
             <form onSubmit={onSubmit}>
-                <div className="form-group">
+            <div className="form-group">
                     <label>Name</label>
                     <input
                         type="text"
