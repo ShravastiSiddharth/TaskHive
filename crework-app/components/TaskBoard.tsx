@@ -15,9 +15,10 @@ interface Task {
 interface TaskBoardProps {
     tasks: Task[];
     onTaskMoved: (task: Task, newStatus: string) => void;
+    onTaskUpdated: () => void;
 }
 
-const TaskBoard: React.FC<TaskBoardProps> = ({ tasks = [], onTaskMoved }) => {
+const TaskBoard: React.FC<TaskBoardProps> = ({ tasks = [], onTaskMoved,  onTaskUpdated  }) => {
     const columns = [
         { title: 'To-Do', status: 'To-Do' },
         { title: 'In Progress', status: 'In Progress' },
@@ -35,6 +36,7 @@ const TaskBoard: React.FC<TaskBoardProps> = ({ tasks = [], onTaskMoved }) => {
                     status={column.status}
                     tasks={tasks.filter(task => task.status === column.status)}
                     onTaskMoved={onTaskMoved}
+                    onTaskUpdated={onTaskUpdated} 
                 />
             ))}
         </div>

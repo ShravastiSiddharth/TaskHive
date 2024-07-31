@@ -19,9 +19,10 @@ interface TaskColumnProps {
     status: string;
     tasks: Task[];
     onTaskMoved: (task: Task, newStatus: string) => void;
+    onTaskUpdated: () => void;
 }
 
-const TaskColumn: React.FC<TaskColumnProps> = ({ title, status, tasks, onTaskMoved }) => {
+const TaskColumn: React.FC<TaskColumnProps> = ({ title, status, tasks, onTaskMoved, onTaskUpdated  }) => {
     const { user, logout } = useAuth();
     const titleClass = title ? styles[title.toLowerCase().replace(/\s+/g, '')] : '';
 
@@ -33,7 +34,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ title, status, tasks, onTaskMov
             {tasks && tasks.length > 0 ? (
                 
                 tasks.map(task => (
-                    <TaskCard key={task._id} task={task} onTaskMoved={onTaskMoved} />
+                    <TaskCard key={task._id} task={task} onTaskMoved={onTaskMoved}  onTaskUpdated={onTaskUpdated}/>
                 ))
             ) : (
                 <p>No tasks yet</p>

@@ -10,48 +10,55 @@ import axios from 'axios';
 const Dashboard = () => {
     const { user } = useAuth();
     const router = useRouter();
-    const [tasks, setTasks] = useState<Task[]>([]); // Initialize as an empty array
+    const [tasks, setTasks] = useState([]); 
 
     useEffect(() => {
         if (!user) {
-            router.push('/');
+            router.push('/login');
         } else {
-            // Fetch tasks for the logged-in user
-            const fetchTasks = async () => {
-                try {
-                    const response = await axios.get('http://localhost:5000/api/tasks');
-                    setTasks(response.data.tasks); // Ensure tasks data is set correctly
-                } catch (error) {
-                    console.error('Error fetching tasks:', error);
-                }
-            };
             fetchTasks();
         }
     }, [user, router]);
 
-    const handleTaskMoved = async (task: Task, newStatus: string) => {
+    const fetchTasks = async () => {
         try {
-            await axios.put(`http://localhost:5000/api/tasks/${task._id}`, { status: newStatus });
-            setTasks(prevTasks =>
-                prevTasks.map(t => (t._id === task._id ? { ...t, status: newStatus } : t))
-            );
+            const response = await axios.get('http://localhost:5000/api/tasks', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            setTasks(response.data.tasks);
         } catch (error) {
-            console.error('Error updating task status:', error);
+            console.error('Error fetching tasks:', error);
         }
     };
 
+    const handleTaskMoved = async (task, newStatus) => {
+        try {
+            await axios.put(`http://localhost:5000/api/tasks/${task._id}`, { status: newStatus }, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            fetchTasks();
+        } catch (error) {
+            console.error('Error moving task:', error);
+        }
+    };
     if (!user) {
-        return null; // or a loading spinner
+        return null;
     }
-
+    const handleTaskUpdated = () => {
+        fetchTasks();
+    };
     return (
         <div className={styles.dashboard}>
             <div>
             <Sidebar />
             </div>
             <div className={styles.content}>
-                <h1>Task Board</h1>
-                <TaskBoard tasks={tasks} onTaskMoved={handleTaskMoved} />
+                <h1>Welcome, {user.name}!</h1>
+                <TaskBoard tasks={tasks} onTaskMoved={handleTaskMoved} onTaskUpdated={handleTaskUpdated}/>
             </div>
         </div>
     );
