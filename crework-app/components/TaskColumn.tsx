@@ -23,8 +23,10 @@ interface TaskColumnProps {
 
 const TaskColumn: React.FC<TaskColumnProps> = ({ title, status, tasks, onTaskMoved }) => {
     const { user, logout } = useAuth();
+    const titleClass = title ? styles[title.toLowerCase().replace(/\s+/g, '')] : '';
+
     return (
-        <div className={styles.taskColumn}>
+        <div className={`${styles.taskColumn} ${titleClass}`}>
             <div className={styles.bardiv}>
             <h3>{title}</h3>
             <FontAwesomeIcon icon={faList} /></div>
