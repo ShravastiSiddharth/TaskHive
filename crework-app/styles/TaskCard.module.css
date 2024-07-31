@@ -57,3 +57,81 @@
 .deadlineLabel {
     font-weight: bold;
 }
+
+.editModal{
+    background-color: #e1d0f6;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 75%;
+}
+.editModal{
+    text-align: center;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.formGroup label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 1.3rem;
+}
+
+.inputField,
+.textArea,
+.selectField {
+    width: 65%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.inputField:focus,
+.textArea:focus,
+.selectField:focus {
+    border-color: #888;
+}
+
+.textArea {
+    resize: vertical;
+    height: 100px;
+}
+
+.editbtn{
+    
+    bottom: 2rem;
+    width: 20%;
+    padding: 0.3rem;
+    background-color: #6b47dc;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+.editbtn:hover{
+    background-color: #573bb4;
+}
+.editdiv{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}

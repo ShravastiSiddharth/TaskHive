@@ -29,19 +29,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ title, status, tasks, onTaskMov
     const titleClass = title ? styles[title.toLowerCase().replace(/\s+/g, '')] : '';
 
     return (
-        // <div className={`${styles.taskColumn} ${titleClass}`}>
-        //     <div className={styles.bardiv}>
-        //     <h3>{title}</h3>
-        //     <FontAwesomeIcon icon={faList} /></div>
-        //     {tasks && tasks.length > 0 ? (
-                
-        //         tasks.map(task => (
-        //             <TaskCard key={task._id} task={task} onTaskMoved={onTaskMoved}  onTaskUpdated={onTaskUpdated}/>
-        //         ))
-        //     ) : (
-        //         <p>No tasks yet</p>
-        //     )}
-        // </div>
+      
 
         <Droppable droppableId={status}>
         {(provided) => (

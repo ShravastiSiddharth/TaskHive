@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { Draggable } from 'react-beautiful-dnd';
+import { toast } from 'react-toastify';
 
 
 interface Task {
@@ -57,6 +58,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onTaskMoved, onTaskUpdated,in
             });
             setEditModalOpen(false);
             onTaskUpdated(); 
+            
         } catch (error) {
             console.error('Error updating task:', error);
         }
@@ -90,20 +92,20 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onTaskMoved, onTaskUpdated,in
                     {user && (
                         <button onClick={() => setEditModalOpen(true)}>Edit</button>
                     )}
-                    <Modal isOpen={isEditModalOpen} onRequestClose={() => setEditModalOpen(false)}>
-                        <h2>Edit Task</h2>
+                    <Modal isOpen={isEditModalOpen} onRequestClose={() => setEditModalOpen(false)} className={styles.editModal}>
+                        <h2>Edit Your Task</h2>
                         <form onSubmit={handleEditSubmit}>
                             <div className={styles.formGroup}>
                                 <label htmlFor="title">Title</label>
-                                <input type="text" name="title" value={editFormData.title} onChange={handleEditChange} />
+                                <input type="text" name="title" value={editFormData.title} onChange={handleEditChange}   className={styles.inputField}/>
                             </div>
                             <div className={styles.formGroup}>
                                 <label htmlFor="description">Description</label>
-                                <textarea name="description" value={editFormData.description} onChange={handleEditChange}></textarea>
+                                <textarea name="description" value={editFormData.description}  className={styles.textArea} onChange={handleEditChange}></textarea>
                             </div>
                             <div className={styles.formGroup}>
                                 <label htmlFor="priority">Priority</label>
-                                <select name="priority" value={editFormData.priority} onChange={handleEditChange}>
+                                <select name="priority" value={editFormData.priority} onChange={handleEditChange} className={styles.selectField}>
                                     <option value="Low">Low</option>
                                     <option value="Medium">Medium</option>
                                     <option value="Urgent">Urgent</option>
@@ -112,14 +114,17 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onTaskMoved, onTaskUpdated,in
                             <div className={styles.formGroup}>
                                 <label htmlFor="deadline">Deadline</label>
                                 <input
+                                  className={styles.inputField}
                                     type="date"
                                     name="deadline"
                                     value={editFormData.deadline ? new Date(editFormData.deadline).toISOString().substr(0, 10) : ''}
                                     onChange={handleEditChange}
                                 />
                             </div>
-                            <button type="submit">Save</button>
-                            <button type="button" onClick={() => setEditModalOpen(false)}>Cancel</button>
+                            <div className={styles.editdiv}>
+                            <button type="submit" className={styles.editbtn}>Save</button>
+                            <button type="button" onClick={() => setEditModalOpen(false)} className={styles.editbtn}>Cancel</button>
+                            </div>
                         </form>
                     </Modal>
                 </div>

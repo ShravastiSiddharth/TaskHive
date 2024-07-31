@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 .catch(() => {
                     localStorage.removeItem('token');
                     delete axios.defaults.headers.common['Authorization'];
-                    router.push('/');
+                    router.push('/login');
                 });
         }
     }, [router]);
@@ -45,7 +45,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         localStorage.removeItem('token');
         delete axios.defaults.headers.common['Authorization'];
         setUser(null);
-        router.push('/');
+        router.push('/login');
     };
 
     return (
