@@ -1,7 +1,9 @@
-// components/TaskColumn.tsx
 import React from 'react';
 import TaskCard from './TaskCard';
 import styles from '../styles/TaskColumn.module.css';
+import { useAuth } from '../context/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList} from '@fortawesome/free-solid-svg-icons';
 
 interface Task {
     _id: string;
@@ -20,12 +22,20 @@ interface TaskColumnProps {
 }
 
 const TaskColumn: React.FC<TaskColumnProps> = ({ title, status, tasks, onTaskMoved }) => {
+    const { user, logout } = useAuth();
     return (
         <div className={styles.taskColumn}>
+            <div className={styles.bardiv}>
             <h3>{title}</h3>
-            {tasks.map(task => (
-                <TaskCard key={task._id} task={task} onTaskMoved={onTaskMoved} />
-            ))}
+            <FontAwesomeIcon icon={faList} /></div>
+            {tasks && tasks.length > 0 ? (
+                
+                tasks.map(task => (
+                    <TaskCard key={task._id} task={task} onTaskMoved={onTaskMoved} />
+                ))
+            ) : (
+                <p>No tasks yet</p>
+            )}
         </div>
     );
 };

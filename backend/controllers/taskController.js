@@ -3,8 +3,8 @@ const Task = require('../models/Task');
 
 const getTasks = async (req, res) => {
     try {
-        const tasks = await Task.find({ user: req.user.id });
-        res.json(tasks);
+        const tasks = await Task.find({ user: req.user._id });
+        res.json({ tasks }); // Ensure this structure
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');

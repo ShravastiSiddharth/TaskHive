@@ -1,0 +1,9 @@
+.bardiv{
+    display: flex;
+    align-items: center;
+   
+    justify-content: center;
+}
+.bardiv h3{
+    margin-right: 0.2rem;
+}

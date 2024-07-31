@@ -1,7 +1,7 @@
-// components/TaskBoard.tsx
 import React from 'react';
 import TaskColumn from './TaskColumn';
 import styles from '../styles/TaskBoard.module.css';
+
 
 interface Task {
     _id: string;
@@ -17,16 +17,17 @@ interface TaskBoardProps {
     onTaskMoved: (task: Task, newStatus: string) => void;
 }
 
-const TaskBoard: React.FC<TaskBoardProps> = ({ tasks, onTaskMoved }) => {
+const TaskBoard: React.FC<TaskBoardProps> = ({ tasks = [], onTaskMoved }) => {
     const columns = [
-        { title: 'To-Do', status: 'todo' },
-        { title: 'In Progress', status: 'in-progress' },
-        { title: 'Under Review', status: 'under-review' },
-        { title: 'Finished', status: 'finished' },
+        { title: 'To-Do', status: 'To-Do' },
+        { title: 'In Progress', status: 'In Progress' },
+        { title: 'Under Review', status: 'Under Review' },
+        { title: 'Finished', status: 'Completed' },
     ];
 
     return (
         <div className={styles.taskBoard}>
+           
             {columns.map(column => (
                 <TaskColumn
                     key={column.status}

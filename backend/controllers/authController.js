@@ -50,5 +50,8 @@ const login = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
+const getAuthUser = (req, res) => {
+    res.json({ user: req.user });
+};
 
-module.exports = { register, login };
+module.exports = { register, login, getAuthUser };

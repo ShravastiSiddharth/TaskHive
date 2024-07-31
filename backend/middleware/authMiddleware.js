@@ -22,4 +22,5 @@ const ensureAuth = async (req, res, next) => {
     }
 };
 
+
 module.exports = { ensureAuth };
