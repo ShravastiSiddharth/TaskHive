@@ -19,7 +19,7 @@
     display: none; 
 }
 
-.taskColumn.to-do{
+.taskColumn.todo{
     background-color: rgb(224 252 224);
 }
 .taskColumn.inprogress{

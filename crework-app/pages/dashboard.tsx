@@ -58,7 +58,7 @@ const Dashboard = () => {
             </div>
             <div className={styles.content}>
                 <h1>Welcome, {user.name}!</h1>
-                <TaskBoard tasks={tasks} onTaskMoved={handleTaskMoved} onTaskUpdated={handleTaskUpdated}/>
+                <TaskBoard tasks={tasks} onTaskMoved={handleTaskMoved} onTaskUpdated={handleTaskUpdated}  fetchTasks={fetchTasks} />
             </div>
         </div>
     );
